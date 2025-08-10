@@ -18,3 +18,5 @@ mod tests {
         assert_eq!(code.content, "fn main() {}");
     }
 }
+
+mod examples;
