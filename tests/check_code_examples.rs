@@ -33,7 +33,7 @@ fn go_hello_world() {
     let expected_path = examples_dir_go.join("hello_world").join("hello.go");
     let expected_code = std::fs::read_to_string(expected_path).expect("Could not read source file");
 
-    assert_eq!(code.content, expected_code);
+    assert_eq!(code.content(), expected_code);
 }
 #[test]
 fn go_task_fib() {
@@ -42,7 +42,7 @@ fn go_task_fib() {
     let expected_path = examples_dir_go.join("task_fib").join("fib.go");
     let expected_code = std::fs::read_to_string(expected_path).expect("Could not read source file");
 
-    assert_eq!(code.content, expected_code);
+    assert_eq!(code.content(), expected_code);
 }
 #[test]
 fn go_task_fib_test() {
@@ -51,5 +51,5 @@ fn go_task_fib_test() {
     let expected_path = examples_dir_go.join("task_fib").join("fib_test.go");
     let expected_code = std::fs::read_to_string(expected_path).expect("Could not read source file");
 
-    assert_eq!(code.content, expected_code);
+    assert_eq!(code.content(), expected_code);
 }

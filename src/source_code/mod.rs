@@ -1,5 +1,12 @@
 pub struct SourceCode {
-    pub content: String,
+    content: String,
+}
+
+impl SourceCode {
+    /// Returns the content as a single string.
+    pub fn content(&self) -> String {
+        self.content.clone()
+    }
 }
 
 impl From<String> for SourceCode {
@@ -29,19 +36,19 @@ mod tests {
     #[test]
     fn from_str() {
         let code = SourceCode::from("fn main() {}");
-        assert_eq!(code.content, "fn main() {}");
+        assert_eq!(code.content(), "fn main() {}");
     }
 
     #[test]
     fn from_string() {
         let code = SourceCode::from("fn main() {}".to_string());
-        assert_eq!(code.content, "fn main() {}");
+        assert_eq!(code.content(), "fn main() {}");
     }
 
     #[test]
     fn from_string_ref() {
         let code = SourceCode::from(&"fn main() {}".to_string());
-        assert_eq!(code.content, "fn main() {}");
+        assert_eq!(code.content(), "fn main() {}");
     }
 }
 
