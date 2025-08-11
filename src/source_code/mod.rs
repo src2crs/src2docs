@@ -1,11 +1,11 @@
 pub struct SourceCode {
-    content: String,
+    lines: Vec<String>,
 }
 
 impl SourceCode {
     /// Returns the content as a single string.
     pub fn content(&self) -> String {
-        self.content.clone()
+        self.lines.join("\n")
     }
 }
 
@@ -24,7 +24,7 @@ impl From<&String> for SourceCode {
 impl From<&str> for SourceCode {
     fn from(value: &str) -> Self {
         Self {
-            content: value.into(),
+            lines: value.split("\n").map(|s| s.to_string()).collect(),
         }
     }
 }
