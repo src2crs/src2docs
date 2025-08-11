@@ -45,7 +45,7 @@ mod tests {
         ];
 
         let code = SourceCode::from(input_lines);
-        assert_eq!(code.content(), EXPECTED_CONTENT);
+        assert_eq!(code.to_string(), EXPECTED_CONTENT);
     }
 
     #[test]
@@ -57,7 +57,7 @@ mod tests {
         ];
 
         let code = SourceCode::from(&input_lines);
-        assert_eq!(code.content(), EXPECTED_CONTENT);
+        assert_eq!(code.to_string(), EXPECTED_CONTENT);
     }
 
     #[test]
@@ -65,7 +65,7 @@ mod tests {
         let input_lines = ["fn main() {", "  println!(\"Hello World\")", "}"];
 
         let code = SourceCode::from(input_lines.as_slice());
-        assert_eq!(code.content(), EXPECTED_CONTENT);
+        assert_eq!(code.to_string(), EXPECTED_CONTENT);
     }
 
     #[test]
@@ -77,6 +77,6 @@ mod tests {
         ];
 
         let code = SourceCode::from(input_lines.iter().as_slice());
-        assert_eq!(code.content(), EXPECTED_CONTENT);
+        assert_eq!(code.to_string(), EXPECTED_CONTENT);
     }
 }

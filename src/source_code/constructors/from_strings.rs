@@ -27,18 +27,18 @@ mod tests {
     #[test]
     fn from_str() {
         let code = SourceCode::from("fn main() {}");
-        assert_eq!(code.content(), "fn main() {}");
+        assert_eq!(code.to_string(), "fn main() {}");
     }
 
     #[test]
     fn from_string() {
         let code = SourceCode::from("fn main() {}".to_string());
-        assert_eq!(code.content(), "fn main() {}");
+        assert_eq!(code.to_string(), "fn main() {}");
     }
 
     #[test]
     fn from_string_ref() {
         let code = SourceCode::from(&"fn main() {}".to_string());
-        assert_eq!(code.content(), "fn main() {}");
+        assert_eq!(code.to_string(), "fn main() {}");
     }
 }
