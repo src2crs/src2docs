@@ -2,9 +2,23 @@ pub struct SourceCode {
     pub content: String,
 }
 
-impl SourceCode {
-    pub fn new(content: String) -> Self {
-        SourceCode { content }
+impl From<String> for SourceCode {
+    fn from(value: String) -> Self {
+        Self::from(value.as_str())
+    }
+}
+
+impl From<&String> for SourceCode {
+    fn from(value: &String) -> Self {
+        Self::from(value.as_str())
+    }
+}
+
+impl From<&str> for SourceCode {
+    fn from(value: &str) -> Self {
+        Self {
+            content: value.into(),
+        }
     }
 }
 
@@ -13,8 +27,20 @@ mod tests {
     use super::*;
 
     #[test]
-    fn new() {
-        let code = SourceCode::new("fn main() {}".into());
+    fn from_str() {
+        let code = SourceCode::from("fn main() {}");
+        assert_eq!(code.content, "fn main() {}");
+    }
+
+    #[test]
+    fn from_string() {
+        let code = SourceCode::from("fn main() {}".to_string());
+        assert_eq!(code.content, "fn main() {}");
+    }
+
+    #[test]
+    fn from_string_ref() {
+        let code = SourceCode::from(&"fn main() {}".to_string());
         assert_eq!(code.content, "fn main() {}");
     }
 }
