@@ -1,6 +1,6 @@
 #![doc = include_str!("README.md")]
 
-use super::SourceCode;
+use crate::SourceCode;
 
 mod go;
 pub use go::GoExample;
