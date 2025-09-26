@@ -1,5 +1,6 @@
 use super::SourceCode;
 
+#[derive(Debug)]
 pub enum GoExample {
     DemoHello,
     TaskFib,
