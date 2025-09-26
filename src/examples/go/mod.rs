@@ -32,4 +32,9 @@ impl Example for GoExample {
             GoExample::TaskFibTest => "task_fib_test.go".to_string(),
         }
     }
+
+    fn all() -> Vec<Self> {
+        use GoExample::*;
+        vec![DemoHello, TaskFib, TaskFibTest]
+    }
 }

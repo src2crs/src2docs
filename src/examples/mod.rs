@@ -4,10 +4,12 @@ use crate::SourceCode;
 
 use std::path::Path;
 
-pub trait Example {
+pub trait Example: Sized {
     fn to_source_code(&self) -> SourceCode;
 
     fn file_name(&self) -> String;
+
+    fn all() -> Vec<Self>;
 
     fn write_file<P: AsRef<Path>>(&self, path: P) -> std::io::Result<()> {
         let source_code = self.to_source_code();
@@ -15,11 +17,7 @@ pub trait Example {
     }
 
     fn write_all<P: AsRef<Path>>(path: P) -> std::io::Result<()> {
-        for example in &[
-            GoExample::DemoHello,
-            GoExample::TaskFib,
-            GoExample::TaskFibTest,
-        ] {
+        for example in Self::all() {
             let file_path = path.as_ref().join(example.file_name());
             example.write_file(&file_path)?;
             println!("Example written to {}", file_path.display());
