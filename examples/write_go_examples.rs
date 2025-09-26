@@ -3,22 +3,12 @@ use std::{env, path::PathBuf};
 use src2docs::GoExample;
 
 fn main() {
-    write_example(GoExample::DemoHello);
-    write_example(GoExample::TaskFib);
-    write_example(GoExample::TaskFibTest);
+    create_out_dirs();
+
+    GoExample::write_all(out_dir_go_path()).unwrap();
 }
 
-fn write_example(example: GoExample) {
-    create_out_dir();
-    let out_dir = out_dir_path();
-    example.write_file(&out_dir).unwrap();
-
-    println!(
-        "Example written to {}",
-        out_dir.join(example.file_name()).display()
-    );
-}
-
+/// The output directory for the generated files.
 fn out_dir_path() -> PathBuf {
     let package_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
     let package_dir = std::path::PathBuf::from(&package_dir);
@@ -26,12 +16,27 @@ fn out_dir_path() -> PathBuf {
     examples_dir.join("out")
 }
 
-/// Create the output directory if it doesn't exist.
-/// Also creates a .gitignore file to ignore all files in the directory.
-fn create_out_dir() {
+/// The path to the subdirectory for Go examples.
+fn out_dir_go_path() -> PathBuf {
+    out_dir_path().join("go")
+}
+
+/// Create the output directories if they don't exist.
+/// Also creates a .gitignore file to ignore all files in the main directory.
+fn create_out_dirs() {
     let out_dir = out_dir_path();
     if !out_dir.exists() {
         std::fs::create_dir_all(&out_dir).unwrap();
-        std::fs::write(out_dir.join(".gitignore"), "*\n").unwrap();
+        println!("Created output directory: {}", out_dir.display());
+    }
+    let ignore_file = out_dir.join(".gitignore");
+    if !ignore_file.exists() {
+        std::fs::write(ignore_file, "*\n").unwrap();
+        println!("Created .gitignore file in output directory");
+    }
+    let out_dir_go = out_dir_go_path();
+    if !out_dir_go.exists() {
+        std::fs::create_dir_all(&out_dir_go).unwrap();
+        println!("Created Go output directory: {}", out_dir_go.display());
     }
 }
