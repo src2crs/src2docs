@@ -28,7 +28,7 @@ fn examples_dir_go_exists() {
 
 #[test]
 fn go_hello_world() {
-    let code = SourceCode::go_hello_world();
+    let code = SourceCode::example_go_hello_world();
     let examples_dir_go = examples_dir_go();
     let expected_path = examples_dir_go.join("hello_world").join("hello.go");
     let expected_code = std::fs::read_to_string(expected_path).expect("Could not read source file");
@@ -37,7 +37,7 @@ fn go_hello_world() {
 }
 #[test]
 fn go_task_fib() {
-    let code = SourceCode::go_task_fib();
+    let code = SourceCode::example_go_task_fib();
     let examples_dir_go = examples_dir_go();
     let expected_path = examples_dir_go.join("task_fib").join("fib.go");
     let expected_code = std::fs::read_to_string(expected_path).expect("Could not read source file");
@@ -46,7 +46,7 @@ fn go_task_fib() {
 }
 #[test]
 fn go_task_fib_test() {
-    let code = SourceCode::go_task_fib_test();
+    let code = SourceCode::example_go_task_fib_test();
     let examples_dir_go = examples_dir_go();
     let expected_path = examples_dir_go.join("task_fib").join("fib_test.go");
     let expected_code = std::fs::read_to_string(expected_path).expect("Could not read source file");
