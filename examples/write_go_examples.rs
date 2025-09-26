@@ -1,6 +1,6 @@
 use std::{env, path::PathBuf};
 
-use src2docs::{GoExample, SourceCode};
+use src2docs::GoExample;
 
 fn main() {
     write_example(GoExample::DemoHello);
@@ -11,11 +11,12 @@ fn main() {
 fn write_example(example: GoExample) {
     create_out_dir();
     let out_dir = out_dir_path();
-    let file_name = format!("{:?}.go", example);
+    example.write_file(&out_dir).unwrap();
 
-    let source_code: SourceCode = example.to_source_code();
-    source_code.write_file(out_dir.join(&file_name)).unwrap();
-    println!("Example written to {}", out_dir.join(&file_name).display());
+    println!(
+        "Example written to {}",
+        out_dir.join(example.file_name()).display()
+    );
 }
 
 fn out_dir_path() -> PathBuf {
