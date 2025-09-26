@@ -5,7 +5,7 @@ use src2docs::examples::{Example, GoExample};
 fn main() {
     create_out_dirs();
 
-    GoExample::write_all(out_dir_go_path()).unwrap();
+    GoExample::write_all(out_dir_path().join("go")).unwrap();
 }
 
 /// The output directory for the generated files.
@@ -14,11 +14,6 @@ fn out_dir_path() -> PathBuf {
     let package_dir = std::path::PathBuf::from(&package_dir);
     let examples_dir = package_dir.join("examples");
     examples_dir.join("out")
-}
-
-/// The path to the subdirectory for Go examples.
-fn out_dir_go_path() -> PathBuf {
-    out_dir_path().join("go")
 }
 
 /// Create the output directories if they don't exist.
@@ -33,10 +28,5 @@ fn create_out_dirs() {
     if !ignore_file.exists() {
         std::fs::write(ignore_file, "*\n").unwrap();
         println!("Created .gitignore file in output directory");
-    }
-    let out_dir_go = out_dir_go_path();
-    if !out_dir_go.exists() {
-        std::fs::create_dir_all(&out_dir_go).unwrap();
-        println!("Created Go output directory: {}", out_dir_go.display());
     }
 }

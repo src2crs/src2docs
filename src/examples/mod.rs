@@ -18,8 +18,15 @@ pub trait Example: Sized {
     /// Creates the directory if it doesn't exist.
     /// Creates the file if it doesn't exist or overwrites it if it does.
     fn write_file<P: AsRef<Path>>(&self, dir: P) -> std::io::Result<()> {
+        let dir = dir.as_ref();
+        if !dir.exists() {
+            std::fs::create_dir_all(dir)?;
+        }
         let source_code = self.to_source_code();
-        source_code.write_file(dir)
+        let file_path = dir.join(self.file_name());
+        source_code.write_file(&file_path)?;
+        println!("Example written to {}", file_path.display());
+        Ok(())
     }
 
     /// Writes all examples from this impl of `Example` to files at the given directory.
@@ -27,9 +34,7 @@ pub trait Example: Sized {
     /// Creates each file if it doesn't exist or overwrites it if it does.
     fn write_all<P: AsRef<Path>>(dir: P) -> std::io::Result<()> {
         for example in Self::all() {
-            let file_path = dir.as_ref().join(example.file_name());
-            example.write_file(&file_path)?;
-            println!("Example written to {}", file_path.display());
+            example.write_file(&dir)?;
         }
         Ok(())
     }
