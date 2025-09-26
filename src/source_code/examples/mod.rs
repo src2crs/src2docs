@@ -3,3 +3,4 @@
 use super::SourceCode;
 
 mod go;
+pub use go::GoExample;

@@ -1,22 +1,24 @@
 use super::SourceCode;
 
-/// Example source code snippets for testing and documentation purposes.
-impl SourceCode {
-    /// A "Hello World" program in Go.
-    pub fn example_go_hello_world() -> Self {
-        let code = include_str!("hello_world/hello.go");
-        Self::from(code)
-    }
+pub enum GoExample {
+    DemoHello,
+    TaskFib,
+    TaskFibTest,
+}
 
-    /// A task for computing Fibonacci numbers in Go.
-    pub fn example_go_task_fib() -> Self {
-        let code = include_str!("task_fib/fib.go");
-        Self::from(code)
-    }
+macro_rules! go_example_from_file {
+    ($name:ident) => {{
+        let code = include_str!(concat!("source_files/", stringify!($name), ".go.txt"));
+        $crate::SourceCode::from(code)
+    }};
+}
 
-    /// Test code for the Fibonacci task in Go.
-    pub fn example_go_task_fib_test() -> Self {
-        let code = include_str!("task_fib/fib_test.go");
-        Self::from(code)
+impl GoExample {
+    pub fn to_source_code(&self) -> SourceCode {
+        match self {
+            GoExample::DemoHello => go_example_from_file!(demo_hello),
+            GoExample::TaskFib => go_example_from_file!(task_fib),
+            GoExample::TaskFibTest => go_example_from_file!(task_fib_test),
+        }
     }
 }
