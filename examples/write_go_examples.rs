@@ -14,7 +14,8 @@ fn write_example(example: GoExample) {
     let file_name = format!("{:?}.go", example);
 
     let source_code: SourceCode = example.to_source_code();
-    std::fs::write(out_dir.join(file_name), source_code.to_string()).unwrap();
+    source_code.write_file(out_dir.join(&file_name)).unwrap();
+    println!("Example written to {}", out_dir.join(&file_name).display());
 }
 
 fn out_dir_path() -> PathBuf {
