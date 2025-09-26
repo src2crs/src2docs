@@ -1,6 +1,6 @@
 use std::{env, path::PathBuf};
 
-use src2docs::examples::GoExample;
+use src2docs::examples::{Example, GoExample};
 
 fn main() {
     create_out_dirs();
